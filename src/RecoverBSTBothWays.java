@@ -35,27 +35,37 @@ public class RecoverBSTBothWays {
     //this is Morris traversal - constant space
     public void recoverTreeMorris(TreeNode root)
     {
-        while(root != null) {
-            if (root.left != null) //left subtree exists
+        while(root != null)
+        {
+            //first check if left subtree exists
+            if (root.left != null)
             {
                 temp = root.left; //go left once
-                while (temp.right != null && temp.right != root) //right subtree exists and we are not back to root
+
+                while (temp.right != null && temp.right != root)//right subtree exists and we are not back to root
                 {
                     temp = temp.right; //keep going right
                 }
+
                 //we have already connected the right pointer
-                if (temp.right != null) {
+                if (temp.right != null)
+                {
                     //condition for finding the two nodes is met
                     if (prevNode != null && prevNode.val > root.val)
                         find(root);
                     prevNode = root;
                     temp.right = null;
                     root = root.right;
-                } else { //if right was not connected
+                }
+                else
+                {
+                    //if right was not connected
                     temp.right = root;
                     root = root.left;
                 }
-            } else //if left wasnt there
+            }
+
+            else //if left wasnt there
             {
                 //check condition again
                 if (prevNode != null && prevNode.val > root.val)
@@ -64,10 +74,11 @@ public class RecoverBSTBothWays {
                 root = root.right; //if left is null, keep going right
             }
         }
-            //finally do the swap
-            // swap two node values that we found
-            if(firstNode != null && lastNode != null)
-                swap(firstNode, lastNode);
+
+        //finally do the swap
+        // swap two node values that we found
+        if(firstNode != null && lastNode != null)
+            swap(firstNode, lastNode);
     }
 
     //Helper methods
@@ -77,9 +88,8 @@ public class RecoverBSTBothWays {
             return;
         inorder(root.left);
         //do business
-        if(prevNode != null && prevNode.val > root.val){
+        if(prevNode != null && prevNode.val > root.val)
             find(root);
-        }
         prevNode = root;
         inorder(root.right);
     }
@@ -93,7 +103,8 @@ public class RecoverBSTBothWays {
     }
 
     //swap them
-    public void swap(TreeNode firstNode, TreeNode lastNode){
+    public void swap(TreeNode firstNode, TreeNode lastNode)
+    {
         int t = firstNode.val;
         firstNode.val = lastNode.val;
         lastNode.val = t;
